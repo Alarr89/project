@@ -1,33 +1,34 @@
-// Место для первой задачи
 function sayHello(name) {
     return `Привет, ${name}!`;
 }
 
-// Место для второй задачи
+sayHello('Alex');
+
 function returnNeighboringNumbers(num) {
-    let arr = [num - 1, num , num + 1];
-    return arr;
+    return [num - 1, num, num + 1];
 }
 
-// Место для третьей задачи
-function getMathResult(base, repeat) {
+returnNeighboringNumbers(5);
 
-    let result = '';
-    let baseValue = base;
+function getMathResult(num, times) {
+    if (typeof(times) !== 'number' || times <= 0) {
+        return num;
+    }
 
-    if(typeof repeat === 'string' || repeat <= 0) {
-        result = baseValue;
-    } else {
-        for(let i = 0; i < repeat; i++) {
-            if(i === 0) {
-                result += baseValue;
-            } else {
-                result += '---' + baseValue;
-            }
-            
-            baseValue += base;
+    let str = '';
+
+    for (let i = 1; i <= times; i++) {
+        if (i === times) {
+            str += `${num * i}`;
+            // Тут без черточек в конце
+        } else {
+            str += `${num * i}---`;
+            // Это тоже самое, что и
+            // str = str + num * i + "---"
         }
     }
 
-    return result;
+    return str;
 }
+
+getMathResult(10, 5);
