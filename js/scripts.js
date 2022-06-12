@@ -1,32 +1,56 @@
-const lines = 5;
-let result = '';
-// Проверяется именно переменная result, формируйте строку в ней
-for(let i = 0; i <= lines; i++) {
-    for(let j = 0; j < lines - i; j++) {
-        result += ' ';
-    }
+/* Задание на урок:
 
-    for(let k = 0; k <= i; k++) {
-        result += '*';
-    }
+1) Автоматизировать вопросы пользователю про фильмы при помощи цикла
 
-    for(let l = 0; l < i; l++) {
-        result += '*';
-    }
+2) Сделать так, чтобы пользователь не мог оставить ответ в виде пустой строки,
+отменить ответ или ввести название фильма длинее, чем 50 символов. Если это происходит - 
+возвращаем пользователя к вопросам опять
 
-    result += '\n';
+3) При помощи условий проверить  personalMovieDB.count, и если он меньше 10 - вывести сообщение
+"Просмотрено довольно мало фильмов", если от 10 до 30 - "Вы классический зритель", а если больше - 
+"Вы киноман". А если не подошло ни к одному варианту - "Произошла ошибка"
+
+4) Потренироваться и переписать цикл еще двумя способами*/
+
+'use strict';
+
+// Код возьмите из предыдущего домашнего задания
+
+let numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?','');
+
+let personalMowieDB = {
+    count: numberOfFilms,
+    movies: {},
+    actors: {},
+    genres: [],
+    privat: false
+};
+
+for(let i = 0; i < 2; i++) {
+    let a = prompt('Один из последних просмотренных фильмов?',''),
+    b = prompt('На сколько оцените его?','');
+
+    if( a != null && b != null && a != '' && b != '' && a.length < 50 ) {
+
+        console.log('done');
+        personalMowieDB.movies[a] = b;
+
+
+    } else {
+
+        console.log('error');
+        i--;
+    }
 }
 
+if(personalMowieDB.count < 10) {
+    console.log('Просмотрено довольно мало фильмов');
+} else if(personalMowieDB.count >= 10 && personalMowieDB.count < 30) {
+    console.log('Вы классический зритель');
+} else if(personalMowieDB.count >= 30){
+    console.log('Вы киноман');
+} else {
+    console.log('Произошла ошибка');
+}
 
-///// Или так /////
-// for (let i = 0; i <= lines; i++) {
-//     for (let j = 0; j < lines - i; j++) {
-//         result += " ";
-//     }
-//     for (let j = 0; j < 2 * i + 1; j++) {
-//         result += "*";
-//     }
-//     result += "\n";
-// }
-
-console.log(result);
+console.log(personalMowieDB); 
