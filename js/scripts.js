@@ -1,103 +1,29 @@
-/* Задание на урок:
-
-1) Первую часть задания повторить по уроку
-
-2) Создать функцию showMyDB, которая будет проверять свойство privat. Если стоит в позиции
-false - выводит в консоль главный объект программы
-
-3) Создать функцию writeYourGenres в которой пользователь будет 3 раза отвечать на вопрос 
-"Ваш любимый жанр под номером ${номер по порядку}". Каждый ответ записывается в массив данных
-genres
-
-P.S. Функции вызывать не обязательно*/
-
-'use strict';
-
-// Код возьмите из предыдущего домашнего задания
-
-/* Задание на урок:
-
-1) Автоматизировать вопросы пользователю про фильмы при помощи цикла
-
-2) Сделать так, чтобы пользователь не мог оставить ответ в виде пустой строки,
-отменить ответ или ввести название фильма длинее, чем 50 символов. Если это происходит - 
-возвращаем пользователя к вопросам опять
-
-3) При помощи условий проверить  personalMovieDB.count, и если он меньше 10 - вывести сообщение
-"Просмотрено довольно мало фильмов", если от 10 до 30 - "Вы классический зритель", а если больше - 
-"Вы киноман". А если не подошло ни к одному варианту - "Произошла ошибка"
-
-4) Потренироваться и переписать цикл еще двумя способами*/
-
-// Код возьмите из предыдущего домашнего задания
-
-let numberOfFilms;
-
-function start() {
-    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?','');
-
-    while(numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
-        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?','');
+// Место для первой задачи
+function calculateVolumeAndArea(a) {
+    if (Number.isInteger(a) && a > 0) {
+        let v = a * a * a;
+        let s = 6 * (a * a);
+        return `Объем куба: ${v}, площадь всей поверхности: ${s}`;
+    } else {
+        return 'При вычислении произошла ошибка';
     }
 }
 
-start();
+function getCoupeNumber(seatNumber) {
+    if (typeof(seatNumber) !== 'number' || seatNumber < 0 || !Number.isInteger(seatNumber)) {
+        return "Ошибка. Проверьте правильность введенного номера места";
+    }
 
-let personalMowieDB = {
-    count: numberOfFilms,
-    movies: {},
-    actors: {},
-    genres: [],
-    privat: false
-};
+    if (seatNumber === 0 || seatNumber > 36) {
+        return "Таких мест в вагоне не существует";
+    }
 
-function rememberMyFilms() {
-    for(let i = 0; i < 2; i++) {
-        let a = prompt('Один из последних просмотренных фильмов?',''),
-        b = prompt('На сколько оцените его?','');
-    
-        if( a != null && b != null && a != '' && b != '' && a.length < 50 ) {
-    
-            console.log('done');
-            personalMowieDB.movies[a] = b;
-    
-        } else {
-    
-            console.log('error');
-            i--;
+    for(let i = 4; i <=36; i = i + 4) {
+        if(seatNumber <= i) {
+            return Math.ceil(i / 4);
         }
     }
 }
 
-rememberMyFilms();
 
-function detectPersonalLevel() {
-    if(personalMowieDB.count < 10) {
-        console.log('Просмотрено довольно мало фильмов');
-    } else if(personalMowieDB.count >= 10 && personalMowieDB.count < 30) {
-        console.log('Вы классический зритель');
-    } else if(personalMowieDB.count >= 30){
-        console.log('Вы киноман');
-    } else {
-        console.log('Произошла ошибка');
-    }
-}
-
-detectPersonalLevel();
-
-function showMyDB(hidden) {
-    if(!hidden) {
-        console.log(personalMowieDB.privat);
-    }
-}
-
-showMyDB(personalMowieDB.privat);
-
-function writeYourGenres() {
-    for( let i = 1; i < 4; i++ ) {
-        personalMowieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`,'');
-    }
-}
-
-writeYourGenres();
-
+console.log(getCoupeNumber(15));
