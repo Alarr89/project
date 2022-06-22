@@ -1,29 +1,46 @@
-// Место для первой задачи
-function calculateVolumeAndArea(a) {
-    if (Number.isInteger(a) && a > 0) {
-        let v = a * a * a;
-        let s = 6 * (a * a);
-        return `Объем куба: ${v}, площадь всей поверхности: ${s}`;
+function getTimeFromMinutes(minutesTotal) {
+    if (typeof(minutesTotal) !== 'number' || minutesTotal < 0 || !Number.isInteger(minutesTotal)) {
+        return "Ошибка, проверьте данные";
+    }
+
+    const hours = Math.floor(minutesTotal / 60);
+    const minutes = minutesTotal % 60;
+
+    let hoursStr = '';
+
+    switch (hours) {
+        case 0: 
+            hoursStr = 'часов';
+            break;
+        case 1:
+            hoursStr = 'час';
+            break;
+        case 2:
+        case 3:
+        case 4:
+            hoursStr = 'часа';
+            break;
+        default:
+            hoursStr = 'часов';
+    }
+
+    return `Это ${hours} ${hoursStr} и ${minutes} минут`;
+}
+
+getTimeFromMinutes(180)
+
+function findMaxNumber(a, b ,c, d) {
+    // Самое простое - это использовать Math.max :)
+    // А оптимизировать такую проверку мы научимся совсем скоро
+    if (typeof(a) !== 'number' ||
+        typeof(b) !== 'number' ||
+        typeof(c) !== 'number' ||
+        typeof(d) !== 'number') {
+        return 0;
     } else {
-        return 'При вычислении произошла ошибка';
+        return Math.max(a, b ,c, d);
     }
 }
 
-function getCoupeNumber(seatNumber) {
-    if (typeof(seatNumber) !== 'number' || seatNumber < 0 || !Number.isInteger(seatNumber)) {
-        return "Ошибка. Проверьте правильность введенного номера места";
-    }
-
-    if (seatNumber === 0 || seatNumber > 36) {
-        return "Таких мест в вагоне не существует";
-    }
-
-    for(let i = 4; i <=36; i = i + 4) {
-        if(seatNumber <= i) {
-            return Math.ceil(i / 4);
-        }
-    }
-}
-
-
-console.log(getCoupeNumber(15));
+findMaxNumber(1, 5, 6.6, 10.5);
+findMaxNumber(1, 5, '6', '10');
