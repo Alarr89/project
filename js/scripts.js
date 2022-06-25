@@ -5,7 +5,7 @@ function fib(number) {
     if (typeof(number) !== 'number' || number <= 0 || !Number.isInteger(number)) {
 
         return "";
-        
+
     } else {
 
         for(let i = 2; i <= number; i++) {
@@ -20,7 +20,5 @@ function fib(number) {
         return result;
     }
 
-    
-
-
 }
+console.log(fib(5));
