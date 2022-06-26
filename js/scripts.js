@@ -1,24 +1,38 @@
-function fib(number) {
-    
-    let result = [0, 1];
+'use strict';
 
-    if (typeof(number) !== 'number' || number <= 0 || !Number.isInteger(number)) {
-
-        return "";
-
-    } else {
-
-        for(let i = 2; i <= number; i++) {
-            
-            result[i] = result[i - 1] + result[i - 2]; 
-        }
-
-        result = result.slice(0, number);
-
-        result = result.join(' ');
-    
-        return result;
+const options = {
+    name: 'test',
+    width: 1024,
+    height: 1024,
+    color: {
+        border: 'black',
+        bg: 'red'
     }
+};
 
-}
-console.log(fib(5));
+let {border, bg} = options.color;
+console.log(border);
+
+//console.log(options.width);
+
+//delete options.name;
+
+// console.log(options);
+
+// let counter = 0;
+
+// for (let key in options) {
+//     if(typeof(options[key]) === 'object') {
+//         for (let i in options[key]) {
+//             console.log(`${i}:${options[key][i]}`);
+//         }
+//     } else {
+//         console.log(`${key}:${options[key]}`);
+//     }
+//     counter++;
+// }
+
+// console.log(counter);
+
+// console.log(Object.keys(options).length);
+
