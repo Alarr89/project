@@ -1,38 +1,20 @@
 'use strict';
 
-const options = {
-    name: 'test',
-    width: 1024,
-    height: 1024,
-    color: {
-        border: 'black',
-        bg: 'red'
-    }
-};
+const arr = [1, 2, 3, 6, 8];
 
-let {border, bg} = options.color;
-console.log(border);
+arr.forEach(function(item, i, arr) {
+    console.log(`${item} под номером ${i} из массива ${arr}`);
+});
 
-//console.log(options.width);
+//arr.pop();
+//arr.push(10);
 
-//delete options.name;
+//console.log(arr);
 
-// console.log(options);
-
-// let counter = 0;
-
-// for (let key in options) {
-//     if(typeof(options[key]) === 'object') {
-//         for (let i in options[key]) {
-//             console.log(`${i}:${options[key][i]}`);
-//         }
-//     } else {
-//         console.log(`${key}:${options[key]}`);
-//     }
-//     counter++;
+// for (let i = 0; i < arr.length; i++) {
+//     console.log(arr[i]);
 // }
 
-// console.log(counter);
-
-// console.log(Object.keys(options).length);
-
+// for (let value of arr) {
+//     console.log(value);
+// }
