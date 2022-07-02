@@ -1,50 +1,44 @@
-'use strict';
+const personalPlanPeter = {
+    name: "Peter",
+    age: "29",
+    skills: {
+        languages: ['ru', 'eng'],
+        programmingLangs: {
+            js: '20%',
+            php: '10%'
+        },
+        exp: '1 month'
+    },
+    showAgeAndLangs: function(plan) {
+        const {age} = plan;
+        const {languages} = plan.skills;
+        let str = `Мне ${age} и я владею языками: `;
 
-const objMain = {
-    a: 5,
-    b: 6,
-    c: 7
+        languages.forEach(function(lang) {
+            str += `${lang.toUpperCase()} `;
+        });
+
+        return str;
+    }
 };
 
-const objCopied = Object.assign({}, objMain);
+personalPlanPeter.showAgeAndLangs(personalPlanPeter);
 
-objCopied.a = 1;
-objCopied.d = 8;
-
-console.log(objMain);
-console.log(objCopied);
-
-/* /////////////////////////////////// */
-
-let arrMain = ['a', 'b', 'c'];
-
-let arrCopied = arrMain.slice();
-
-arrCopied[0] = 'opa opa';
-
-console.log(arrMain);
-console.log(arrCopied);
-
-/* /////////////////////////////////// */
-
-const arrFirst = ['opa', 'popa', 'knopa'],
-      arrSecond = ['ipa', 'pipa', 'bipa'],
-      arrThird = [...arrFirst, ...arrSecond, 'kepa', 'pepa'];
-
-      console.log(arrThird);
-
-function threeElems(a, b, c) {
-    console.log(a);
-    console.log(b);
-    console.log(c);
+function showExperience(plan) {
+    const {exp} = plan.skills;
+    return exp;
 }
 
-threeElems(...arrFirst);
+showExperience(personalPlanPeter);
 
-/* /////////////////////////////////// */
-/* Получается, что копировать массивы и объекты можно просто с помощью фишки экмаскрипт 6 и 9, 
-spread Это название массива с тремя точечками */
+function showProgrammingLangs(plan) {
+    let str = '';
+    const {programmingLangs} = plan.skills;
+    for (let key in programmingLangs) {
+        str += `Язык ${key} изучен на ${programmingLangs[key]}\n`
+    }
 
-let arr1 = [1, 2, 3];
-let arr2 = [...arr1];
-console.log(arr2);
+    return str;
+}
+
+showProgrammingLangs(personalPlanPeter);
