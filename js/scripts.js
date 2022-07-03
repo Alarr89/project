@@ -1,40 +1,19 @@
-const someString = 'This is some strange string';
+const pers = {
+    health: 400,
+    armor: 100,
+    sayHello() {
+        console.log('Hello');
+    }
+};
 
-function reverse(str) {
+//const John = {
+//    health: 100
+//};
 
-    let msg = '';
+//Object.setPrototypeOf(John, pers);
 
-    typeof(str) === 'string' ? msg = str.split('').reverse().join('') : msg = 'Ошибка!';
+const John = Object.create(pers);
 
-    return msg;
-}
-
-console.log(reverse(someString));
-
-const baseCurrencies = ['USD', 'EUR'];
-const additionalCurrencies = ['UAH', 'RUB', 'CNY'];
-
-function availableCurr(arr, missingCurr) {
-    let str = '';
-    arr.length === 0 ? str = 'Нет доступных валют' : str = 'Доступные валюты:\n';
-
-    arr.forEach(function(curr, i) {
-        if (curr !== missingCurr) {
-            str += `${curr}\n`;
-        }
-    });
-
-    // Или
-    // for (let i = 0; i < arr.length; i++) {
-    //     if (arr[i] === missingCurr) {
-    //         continue;
-    //     }
-    //     str += `${arr[i]}\n`;
-    // }
-
-    return str;
-}
+console.log(John.armor);
 
 
-
-console.log(availableCurr([...baseCurrencies, ...additionalCurrencies], 'CNY'));
