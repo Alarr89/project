@@ -20,29 +20,23 @@ const shoppingMallData = {
     height: 5,
     moneyPer1m3: 30,
     budget: 50000
-}
+};
 
 function isBudgetEnough(data) {
+    let square = 0;
+    let volume = 0;
 
-    let s = 0,
-        v = 0,
-        moneySumm = 0,
-        msg = '';
+    data.shops.forEach(shop => {
+        square += shop.width * shop.length;
+    });
 
-    for(let key in data.shops) {
-        s += data.shops[key].width * data.shops[key].length;
-        v += data.shops[key].width * data.shops[key].length * data.height;
-    }
+    volume = data.height * square;
 
-    moneySumm = v * data.moneyPer1m3;
-
-    if(data.budget >= moneySumm) {
-        msg = 'Бюджета достаточно';
+    if (data.budget - (volume * data.moneyPer1m3) >= 0) {
+        return 'Бюджета достаточно';
     } else {
-        msg = 'Бюджета недостаточно';
+        return 'Бюджета недостаточно';
     }
-    
-    return msg;
 }
 
-console.log(isBudgetEnough(shoppingMallData));
+isBudgetEnough(shoppingMallData);
