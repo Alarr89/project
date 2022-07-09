@@ -1,52 +1,11 @@
-const restorantData = {
-    menu: [
-        {
-            name: 'Salad Caesar',
-            price: '14$'
-        },
-        {
-            name: 'Pizza Diavola',
-            price: '9$'
-        },
-        {
-            name: 'Beefsteak',
-            price: '17$'
-        },
-        {
-            name: 'Napoleon',
-            price: '7$'
-        }
-    ],
-    waitors: [
-        {name: 'Alice', age: 22}, {name: 'John', age: 24}
-    ],
-    averageLunchPrice: '20$',
-    openNow: true
-};
+DOM // Объектная модель документа. Страница это объект, и называется она document.
 
-function isOpen(prop) {
-    let answer = '';
-    prop ? answer = 'Открыто' : answer = 'Закрыто';
+document.getElementById('box'); // Так мы берём один айдишник
+document.getElementsByTagName('body'); // Так мы создаём псевдомассив, коллекцию всех тегов вписаных сюда
+document.getElementsByClassName('list-item'); // Там мы создаём коллекцию вех эллементов с таким классом
 
-    return answer;
-}
-console.log(isOpen(restorantData.openNow));
+document.querySelectorAll('.nav-item'); // Так мы создаём коллекцию всех элементов с заданым селекотором
+//это новый метод работы с элементами, так их легче находить, и надо писать уже точку или решёточку.
 
-function isAverageLunchPriceTrue(fDish, sDish, average) {
-    
-    if ((+fDish.price.slice(0,-1)) + (+sDish.price.slice(0,-1)) < +average.slice(0,-1)) {
-        return 'Цена ниже средней';
-    } else {
-        return 'Цена выше средней';
-    }
-}
-console.log(isAverageLunchPriceTrue(restorantData.menu[0], restorantData.menu[1], restorantData.averageLunchPrice));
-
-function transferWaitors(data) {
-    const copy = Object.assign({}, data);
-
-    copy.waitors = [{name: 'Mike', age: 32}];
-    return copy;
-}
-
-transferWaitors(restorantData);
+document.querySelector('.logo'); // Так мы берём только один элемент. Тоже надо писать или точку или решёточку.
+// Если мы пишем селектор элемента которых много, то сюда попадает самый первый эллемент.
