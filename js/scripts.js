@@ -1,22 +1,23 @@
-const btn = document.querySelector('.el');
-const btns = document.querySelectorAll('.el');
+//console.log(document.body);
+//console.log(document.head);
+//console.log(document.documentElement);
+//childNodes - получаем все дочерние узлы
+//console.log(document.childNodes);
+//console.log(document.firstChild);
+//console.log(document.firstElementChild);
+//console.log(document.lastElementChild);
 
-// Не надёжный метод
-// btn.onclick = function() {
-//     alert('click');
-// };
+//console.log(document.body.querySelector('#current').parentNode);
+//console.log(document.body.querySelector('#current').parentElementNode);
 
-// Хороший метод
-const consSomething = (e) => {
-    //e.preventDefault();
-    console.log(e.target);
-};
+//console.log(document.body.querySelector('#current').nextSibling);
+//console.log(document.body.querySelector('#current').nextElementSibling);
 
-//btn.addEventListener('click', consSomething, {once: true});
+for (let node of document.body.childNodes) {
 
-btns.forEach(btn => {
-    btn.addEventListener('click', consSomething, {once: true});
-});
+    if(node.nodeName == "#text") {
+        continue;
+    }
 
-
-
+    console.log(node);
+}
