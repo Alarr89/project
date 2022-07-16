@@ -1,23 +1,89 @@
-//console.log(document.body);
-//console.log(document.head);
-//console.log(document.documentElement);
-//childNodes - получаем все дочерние узлы
-//console.log(document.childNodes);
-//console.log(document.firstChild);
-//console.log(document.firstElementChild);
-//console.log(document.lastElementChild);
+// function pow(x, n) {
+//     let result = 1;
 
-//console.log(document.body.querySelector('#current').parentNode);
-//console.log(document.body.querySelector('#current').parentElementNode);
+//     for (let i = 0; i < n; i++) {
+//         result *= x;
+//     }
 
-//console.log(document.body.querySelector('#current').nextSibling);
-//console.log(document.body.querySelector('#current').nextElementSibling);
+//     return result;
+// }
 
-for (let node of document.body.childNodes) {
+// function pow(x, n) {
+//     if (n === 1) {
+//         return x;
+//     } else {
+//         return x * pow(x, n - 1);
+//     }
+// }
 
-    if(node.nodeName == "#text") {
-        continue;
+// console.log(pow(2,1));
+// console.log(pow(2,2));
+// console.log(pow(2,3));
+// console.log(pow(2,4));
+// console.log(pow(2,5));
+
+const students = {
+    js: [{
+       name: 'John',
+       progress: 100 
+    }, {
+        name: 'Ivy',
+        progress: 60
+    }],
+
+    html: {
+        basic: [{
+            name: 'Peter',
+            progress: 20 
+         }, {
+             name: 'Ann',
+             progress: 18
+         }],
+
+        pro: [{
+            name: 'Sam',
+            progress: 10
+        }]
+    }
+};
+
+function getProgressByIteration(data) {
+    let total = 0;
+    let students = 0;
+
+    for (let course of Object.values(data)) {
+        if(Array.isArray(course)) {
+            students += course.length;
+
+            for (let i = 0; i < course.length; i++) {
+                total += course[i].progress;
+            }
+        } else {
+            for (let subCourse of Object.values(data)) {
+                students += subCourse.length;
+
+                for (let i = 0; i < subCourse.length; i++) {
+                    total += subCourse[i].progress;
+                } 
+            }
+        }
     }
 
-    console.log(node);
+    return total / students;
 }
+
+// Задача сделать функцию которая рекурсией находит факториал
+
+function factorial(n) {
+    if (typeof(n) !== 'number' || !Number.isInteger(n)) {
+        return "Ошибка, проверьте данные";
+    }
+
+    if (n >= 1) {
+        return n * factorial(n - 1);
+    } else {
+        return 1;
+    }
+}
+
+console.log(factorial(1.5));
