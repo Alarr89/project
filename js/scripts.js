@@ -87,3 +87,20 @@ function factorial(n) {
 }
 
 console.log(factorial(1.5));
+
+
+let arr = [1,2,3,4,5],
+    result = '';
+
+// for(let item in arr) {
+//     result += item + '\n';
+// }
+
+for(let i = 0; i < arr.length; i++) {
+    result = arr[i];
+}
+
+console.log(result);
+
+console.log(4 % 3);
+console.log(Math.sqrt(4));
