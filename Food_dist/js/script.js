@@ -1,16 +1,13 @@
-// Создаём глобальный обработчик событий
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', function() {
 
     // Tabs
+    
+	let tabs = document.querySelectorAll('.tabheader__item'),
+		tabsContent = document.querySelectorAll('.tabcontent'),
+		tabsParent = document.querySelector('.tabheader__items');
 
-    // Создали переменные со всеми сущностями, с которыми будем работать
-    const tabs = document.querySelectorAll('.tabheader__item'),
-          tabsContent = document.querySelectorAll('.tabcontent'),
-          tabsParent = document.querySelector('.tabheader__items');
-
-    // Создадим функцию, которая удаляет табы и класс активности
-
-    function hideContent() {
+	function hideTabContent() {
+        
         tabsContent.forEach(item => {
             item.classList.add('hide');
             item.classList.remove('show', 'fade');
@@ -19,55 +16,40 @@ window.addEventListener('DOMContentLoaded', () => {
         tabs.forEach(item => {
             item.classList.remove('tabheader__item_active');
         });
-    }
+	}
 
-    // Создадим функцию, которая появляет табы и добавляет класс активности
-    // Добавили ещё значение по умолчанию для i. Это фишка ES6
-    function showContent(i = 0) {
+	function showTabContent(i = 0) {
         tabsContent[i].classList.add('show', 'fade');
         tabsContent[i].classList.remove('hide');
         tabs[i].classList.add('tabheader__item_active');
     }
+    
+    hideTabContent();
+    showTabContent();
 
-    hideContent();
-    showContent();
-
-    // Добавляем лысэнэр делегированием событий
-    tabsParent.addEventListener('click', (event) => {
-        const target = event.target;
-
-        // Если попали во что-то и это что-то имеет класс tabheader__item
-        if(target && target.classList.contains('tabheader__item')) {
-
-            // то мы перебираем все табы
+	tabsParent.addEventListener('click', function(event) {
+		const target = event.target;
+		if(target && target.classList.contains('tabheader__item')) {
             tabs.forEach((item, i) => {
-
-                // И если таб равняется нашему таргету
-                // то мы вызываем его номер
-                if(target == item) {
-                    hideContent();
-                    showContent(i);
+                if (target == item) {
+                    hideTabContent();
+                    showTabContent(i);
                 }
             });
-        }
+		}
     });
-
+    
     // Timer
 
-    // создаём переменную с дэдлайном
-    const deadline = '2022-08-02';
+    const deadline = '2022-06-11';
 
-    // создаём функцию которая находит разницу мужду дэдлайном и натоящим временем
     function getTimeRemaining(endtime) {
-
-        // создаём переменными с разницей миллисекунд и рассчитываем дни часы минуты и сукунды
         const t = Date.parse(endtime) - Date.parse(new Date()),
             days = Math.floor( (t/(1000*60*60*24)) ),
             seconds = Math.floor( (t/1000) % 60 ),
             minutes = Math.floor( (t/1000/60) % 60 ),
             hours = Math.floor( (t/(1000*60*60) % 24) );
 
-        // возвращаем всё что рассчитали объектом
         return {
             'total': t,
             'days': days,
@@ -77,7 +59,6 @@ window.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // эта функция нужна, чтобы выводить одназначиные значения с ноликом в начале
     function getZero(num){
         if (num >= 0 && num < 10) { 
             return '0' + num;
@@ -86,7 +67,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // эта ф-я находит селекторы и вносит туда изменения каждую секунду
     function setClock(selector, endtime) {
 
         const timer = document.querySelector(selector),
@@ -95,7 +75,7 @@ window.addEventListener('DOMContentLoaded', () => {
             minutes = timer.querySelector('#minutes'),
             seconds = timer.querySelector('#seconds'),
             timeInterval = setInterval(updateClock, 1000);
-        // тут мы вызываем функцию, чтобы таймер срабатывал сразу при загрузке страницы
+
         updateClock();
 
         function updateClock() {
@@ -114,57 +94,176 @@ window.addEventListener('DOMContentLoaded', () => {
 
     setClock('.timer', deadline);
 
+    // Modal
 
-    //Modal
-    //data-close
-    //data-modal
+    const modalTrigger = document.querySelectorAll('[data-modal]'),
+        modal = document.querySelector('.modal'),
+        modalCloseBtn = document.querySelector('[data-close]');
 
-    const modalButtons = document.querySelectorAll('[data-modal]'),
-          modalCloseButton = document.querySelector('[data-close]'),
-          modalWindow = document.querySelector('.modal');
+    modalTrigger.forEach(btn => {
+        btn.addEventListener('click', openModal);
+    });
 
-          function closeModal() {
-            //modalWindow.style.display = 'none';
-            modalWindow.classList.add('hide');
-            modalWindow.classList.remove('show');
-            document.querySelector('body').style.overflow = '';
-          }
+    function closeModal() {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
 
-          function openModal() {
-                //modalWindow.style.display = 'block';
-                modalWindow.classList.add('show');
-                modalWindow.classList.remove('hide');
-                document.querySelector('body').style.overflow = 'hidden';
-                clearInterval(modalInterval);
-          }
+    function openModal() {
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        document.body.style.overflow = 'hidden';
+        clearInterval(modalTimerId);
+    }
+    
+    modalCloseBtn.addEventListener('click', closeModal);
 
-          modalButtons.forEach(item => {
-            item.addEventListener('click', openModal);
-          });
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
 
-          modalCloseButton.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+        if (e.code === "Escape" && modal.classList.contains('show')) { 
+            closeModal();
+        }
+    });
 
-          modalWindow.addEventListener('click', (event) => {
-            if(event.target === modalWindow) {
-                closeModal();
+    // const modalTimerId = setTimeout(openModal, 3000);
+    // Закомментировал, чтобы не отвлекало
+
+    function showModalByScroll() {
+        if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+            openModal();
+            window.removeEventListener('scroll', showModalByScroll);
+        }
+    }
+    window.addEventListener('scroll', showModalByScroll);
+
+    // Используем классы для создание карточек меню
+
+    class MenuCard {
+        constructor(src, alt, title, descr, price, parentSelector, ...classes) {
+            this.src = src;
+            this.alt = alt;
+            this.title = title;
+            this.descr = descr;
+            this.price = price;
+            this.classes = classes;
+            this.parent = document.querySelector(parentSelector);
+            this.transfer = 27;
+            this.changeToUAH(); 
+        }
+
+        changeToUAH() {
+            this.price = this.price * this.transfer; 
+        }
+
+        render() {
+            const element = document.createElement('div');
+
+            if (this.classes.length === 0) {
+                this.classes = "menu__item";
+                element.classList.add(this.classes);
+            } else {
+                this.classes.forEach(className => element.classList.add(className));
             }
-          });
 
-          document.addEventListener('keydown', (event) => {
-            if(event.code === 'Escape' && modalWindow.classList.contains('show')) {
-                closeModal();
-            }
-          });
+            element.innerHTML = `
+                <img src=${this.src} alt=${this.alt}>
+                <h3 class="menu__item-subtitle">${this.title}</h3>
+                <div class="menu__item-descr">${this.descr}</div>
+                <div class="menu__item-divider"></div>
+                <div class="menu__item-price">
+                    <div class="menu__item-cost">Цена:</div>
+                    <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+                </div>
+            `;
+            this.parent.append(element);
+        }
+    }
 
-          const modalInterval = setTimeout(openModal, 3000);
+    new MenuCard(
+        "img/tabs/vegy.jpg",
+        "vegy",
+        'Меню "Фитнес"',
+        'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
+        9,
+        ".menu .container"
+    ).render();
 
-          function showModalOnScroll() {
-            if(window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
-                openModal();
-                window.removeEventListener('scroll', showModalOnScroll());
-            }
-          }
+    new MenuCard(
+        "img/tabs/post.jpg",
+        "post",
+        'Меню "Постное"',
+        'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
+        14,
+        ".menu .container"
+    ).render();
 
-          window.addEventListener('scroll', showModalOnScroll());
+    new MenuCard(
+        "img/tabs/elite.jpg",
+        "elite",
+        'Меню “Премиум”',
+        'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
+        21,
+        ".menu .container"
+    ).render();
+
+    // function setOptions(height, width, ...additional) {
+    //     console.log(height, width, ...additional)
+    // }
+    // setOptions(400, 500, 'red', 'top');
+
+
+        // function qwe(a,b,c,...rest) {
+        //     console.log(a,b,c,...rest);
+        // }
+
+        // qwe(1,2,3,4,5,6,7,8);
+
+
+    // function umnozhitVse(...mnozhiteli) {
+    //     let otvet = 1;
+    //     for(let mozhitel of mnozhiteli) {
+    //         otvet *= mozhitel;
+    //     }
+
+    //     return otvet;
+    // }
+
+    // console.log(umnozhitVse(2,2,2,2,10));
+
+    // class Block {
+    //     constructor(className, width, height, parentContainer, background) {
+    //         this.className = className;
+    //         this.width = width;
+    //         this.height = height;
+    //         this.parentContainer = document.querySelector(parentContainer);
+    //         this.background = background;
+    //     }
+
+    //     render() {
+    //         let element = document.createElement('div');
+    //         element.innerHTML = 'qwe';
+    //         element.classList.add(this.className);
+    //         element.style.width = `${this.width}px`;
+    //         element.style.height = `${this.height}px`;
+    //         element.style.background = this.background;
+    //         this.parentContainer.append(element);
+    //     }
+    // }
+
+    // for(let i = 0; i < 3; i++) {
+    //     new Block(
+    //         'test-div',
+    //         200,
+    //         300,
+    //         '.menu__field',
+    //         'green'
+    //     ).render();
+    // }
 
 });
