@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="slider">
+        <div class="slider-head">
+            <div class="prev"><</div>
+            <div class="counter"></div>
+            <div class="next">></div>
+        </div>
+        <div class="slides">
+            <div class="slide">1</div>
+            <div class="slide">2</div>
+            <div class="slide">3</div>
+            <div class="slide">4</div>
+        </div>
+    </div>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider {
+            width: 300px;
+        }
+
+        .slider-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 34px;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+        }
+
+        .prev,
+        .next {
+            cursor: pointer;
+        }
+
+        .slides {
+            
+        }
+
+        .slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            background: green;
+            width: 300px;
+            height: 200px;
+            box-sizing: border-box;
+            border: 2px solid rgb(4, 59, 4);
+            font-size: 30px;
+        }
+    </style>
+
+    <script src="../inventory/slides-counter.js"></script>
+</body>
+</html>
